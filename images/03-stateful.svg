@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 250" width="990" height="750">
+<rect width="330" height="250" fill="#ffffff"/>
+<rect x="5" y="4" width="320" height="242" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="4 4"/>
+<rect x="102" y="13" width="126" height="43" rx="7" fill="#dbeafe" stroke="#2563eb"/>
+<text x="165.0" y="32" text-anchor="middle" font-size="11" font-weight="bold" fill="#172334">EXT01</text>
+<text x="165.0" y="46" text-anchor="middle" font-size="9" fill="#172334">Externo / WAN</text>
+<rect x="102" y="99" width="126" height="49" rx="7" fill="#fef3c7" stroke="#d97706"/>
+<text x="165.0" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#172334">FW01</text>
+<text x="165.0" y="132" text-anchor="middle" font-size="9" fill="#172334">Firewall / Gateway</text>
+<rect x="8" y="192" width="148" height="43" rx="7" fill="#dcfce7" stroke="#16a34a"/>
+<text x="82.0" y="211" text-anchor="middle" font-size="11" font-weight="bold" fill="#172334">APP01 / DB01</text>
+<text x="82.0" y="225" text-anchor="middle" font-size="9" fill="#172334">LAN</text>
+<rect x="174" y="192" width="148" height="43" rx="7" fill="#ffedd5" stroke="#ea580c"/>
+<text x="248.0" y="211" text-anchor="middle" font-size="11" font-weight="bold" fill="#172334">WEB01</text>
+<text x="248.0" y="225" text-anchor="middle" font-size="9" fill="#172334">DMZ / destino</text>
+<path d="M165 56 V99 M139 148 V168 H82 V192 M191 148 V168 H248 V192" stroke="#64748b" stroke-width="2" fill="none"/>
+<rect x="190" y="66" width="115" height="21" rx="5" fill="#dbeafe"/>
+<text x="247.5" y="80" text-anchor="middle" font-size="9" fill="#172334">NEW</text>
+<rect x="18" y="155" width="91" height="21" rx="5" fill="#dcfce7"/>
+<text x="63.5" y="169" text-anchor="middle" font-size="9" fill="#172334">ESTABLISHED</text>
+<rect x="221" y="155" width="100" height="21" rx="5" fill="#ffedd5"/>
+<text x="271.0" y="169" text-anchor="middle" font-size="9" fill="#172334">RELATED</text>
+</svg>

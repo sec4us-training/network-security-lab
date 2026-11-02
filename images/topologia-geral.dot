@@ -1,0 +1,16 @@
+digraph G {
+graph [rankdir=TB,bgcolor="transparent",pad="0.25",nodesep="0.5",ranksep="0.8",fontname="DejaVu Sans",label="Topologia geral - 5 maquinas",labelloc=t,fontsize=19];
+node [shape=box,style="rounded,filled",fontname="DejaVu Sans",fontsize=12,color="#64748b",margin="0.20,0.14"];
+edge [fontname="DejaVu Sans",fontsize=10,color="#64748b",penwidth=1.7,arrowsize=.75];
+EXT01 [label="EXT01\n203.0.113.10",fillcolor="#dbeafe"];
+FW01 [label="FW01\nWAN 203.0.113.1\nLAN 10.10.10.1\nDMZ 172.16.20.1",fillcolor="#fef3c7"];
+APP01 [label="APP01\n10.10.10.10",fillcolor="#dcfce7"];
+DB01 [label="DB01\n10.10.10.20",fillcolor="#dcfce7"];
+WEB01 [label="WEB01\n172.16.20.10",fillcolor="#ffedd5"];
+{rank=same; APP01; DB01; WEB01;}
+EXT01 -> FW01 [style=invis];
+EXT01 -> FW01;
+FW01 -> APP01 [label="LAN"];
+FW01 -> DB01 [label="LAN"];
+FW01 -> WEB01 [label="DMZ"];
+}
