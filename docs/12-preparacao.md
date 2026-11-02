@@ -65,7 +65,7 @@ As máquinas que usam o projeto Django (APP01 e WEB01) e o DB01 compartilham o
 mesmo repositório. Clone-o onde for necessário (ajuste a URL do seu remoto):
 
 ```bash
-sudo git clone https://github.com/SEU-USUARIO/network-security-lab.git /opt/network-security-lab
+sudo git clone https://github.com/sec4us-training/network-security-lab.git /opt/network-security-lab
 ```
 
 ---
