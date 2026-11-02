@@ -27,3 +27,7 @@
 - NAT não é necessário para roteamento entre subnets; pode ser aplicado como exercício separado.
 - A rede externa simulada é isolada; se houver Internet real, será necessária uma arquitetura de saída adicional.
 - Utilize snapshots por fase e uma rede de administração independente quando possível.
+
+---
+
+© 2026 Sec4US. Todos os direitos reservados. Conteúdo do treinamento 'Introdução a Redes IPv4'. É proibido o compartilhamento, a divulgação ou a reprodução deste material sem aprovação prévia por escrito da Sec4US.

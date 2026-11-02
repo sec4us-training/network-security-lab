@@ -34,3 +34,7 @@ A instalação completa por máquina (gunicorn, systemd, Nginx) está em
 - `/` — página com hosts e eventos lidos do PostgreSQL.
 - `/admin/` — administração do Django.
 - `/healthz` — verificação de saúde (inclui conectividade com o banco).
+
+---
+
+© 2026 Sec4US. Todos os direitos reservados. Conteúdo do treinamento 'Introdução a Redes IPv4'. É proibido o compartilhamento, a divulgação ou a reprodução deste material sem aprovação prévia por escrito da Sec4US.

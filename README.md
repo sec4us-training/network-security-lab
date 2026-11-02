@@ -33,3 +33,7 @@ Arquitetura didática com **5 máquinas virtuais** e **3 redes virtuais isoladas
 > **Nota:** `203.0.113.0/24` é uma rede reservada para documentação. Aqui ela simula a WAN, não representa conectividade real com a Internet. As interfaces `eth0`, `eth1` e `eth2` são nomes didáticos e podem variar na VM.
 
 Os SVGs reproduzem os diagramas estilizados apresentados na conversa, com cartões coloridos, organização espacial e legendas. Os arquivos `.dot` são alternativas para edição em Graphviz e **não** reproduzem o mesmo estilo visual dos SVGs.
+
+---
+
+© 2026 Sec4US. Todos os direitos reservados. Conteúdo do treinamento 'Introdução a Redes IPv4'. É proibido o compartilhamento, a divulgação ou a reprodução deste material sem aprovação prévia por escrito da Sec4US.
