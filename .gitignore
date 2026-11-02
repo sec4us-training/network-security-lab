@@ -51,3 +51,16 @@ $RECYCLE.BIN/
 *.log
 *.tmp
 *.bak
+
+# ---> Python / Django
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/

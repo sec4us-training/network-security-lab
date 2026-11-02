@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab de Redes — {{ app_role }}</title>
+  <style>
+    :root {
+      --bg: #0f172a; --card: #1e293b; --fg: #e2e8f0; --muted: #94a3b8;
+      --accent: #38bdf8; --info: #38bdf8; --warning: #fbbf24; --critical: #f87171;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.5; padding: 24px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    header { border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+    h1 { margin: 0 0 4px; font-size: 1.5rem; }
+    .role { display: inline-block; background: var(--accent); color: #0f172a;
+      font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: .8rem; }
+    .meta { color: var(--muted); font-size: .85rem; margin-top: 8px; }
+    .meta code { color: var(--fg); background: #0b1220; padding: 1px 6px; border-radius: 4px; }
+    .cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 18px; flex: 1; min-width: 140px; }
+    .card .n { font-size: 1.8rem; font-weight: 700; }
+    .card .l { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .5px; }
+    h2 { font-size: 1.1rem; margin: 24px 0 12px; }
+    table { width: 100%; border-collapse: collapse; background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: .9rem; }
+    th { color: var(--muted); text-transform: uppercase; font-size: .72rem; letter-spacing: .5px; }
+    tr:last-child td { border-bottom: none; }
+    .zone { font-weight: 600; }
+    .zone.WAN { color: #f472b6; } .zone.LAN { color: #4ade80; } .zone.DMZ { color: #fbbf24; }
+    .sev { font-weight: 700; font-size: .75rem; padding: 1px 8px; border-radius: 999px; }
+    .sev.info { background: rgba(56,189,248,.15); color: var(--info); }
+    .sev.warning { background: rgba(251,191,36,.15); color: var(--warning); }
+    .sev.critical { background: rgba(248,113,113,.15); color: var(--critical); }
+    footer { margin-top: 32px; color: var(--muted); font-size: .8rem;
+      border-top: 1px solid var(--border); padding-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Laboratório de Redes <span class="role">{{ app_role }}</span></h1>
+      <div class="meta">
+        Página servida por <code>{{ hostname }}</code> ·
+        Dados lidos do PostgreSQL em <code>{{ db_host }}</code> (base <code>{{ db_name }}</code>)
+      </div>
+    </header>
+
+    <div class="cards">
+      <div class="card"><div class="n">{{ host_count }}</div><div class="l">Hosts</div></div>
+      <div class="card"><div class="n">{{ event_count }}</div><div class="l">Eventos</div></div>
+    </div>
+
+    <h2>Hosts do laboratório</h2>
+    <table>
+      <thead><tr><th>Nome</th><th>IP</th><th>Zona</th><th>Função</th></tr></thead>
+      <tbody>
+        {% for h in hosts %}
+        <tr>
+          <td>{{ h.name }}</td>
+          <td><code>{{ h.ip }}</code></td>
+          <td class="zone {{ h.zone }}">{{ h.zone }}</td>
+          <td>{{ h.role }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Nenhum host cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Eventos recentes</h2>
+    <table>
+      <thead><tr><th>Quando</th><th>Host</th><th>Severidade</th><th>Mensagem</th></tr></thead>
+      <tbody>
+        {% for e in events %}
+        <tr>
+          <td>{{ e.created|date:"d/m H:i" }}</td>
+          <td>{{ e.host.name }}</td>
+          <td><span class="sev {{ e.severity }}">{{ e.get_severity_display }}</span></td>
+          <td>{{ e.message }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Nenhum evento registrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <footer>
+      Projeto de exemplo (Django + PostgreSQL) do laboratório de redes.
+      Verificação de saúde: <code>/healthz</code>
+    </footer>
+  </div>
+</body>
+</html>
