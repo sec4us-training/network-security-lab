@@ -1,5 +1,7 @@
 # Arquitetura e endereçamento
 
+[← Índice](../README.md)
+
 ![Topologia](../images/topologia-geral.svg)
 
 ## Segmentos

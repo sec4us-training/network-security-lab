@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m py_compile manage.py labsite/*.py core/*.py core/migrations/*.py)",
+      "Bash(python3 -m venv venv)",
+      "Bash(./venv/bin/pip -q install Django==4.2.16)",
+      "Bash(/private/tmp/claude-501/-Users-m4v3r1ck-Storage-Workload-Pivot-network-security-lab/ef88740a-8880-447f-b0f6-b78254e80540/scratchpad/venv/bin/python manage.py makemigrations --check --dry-run)",
+      "Bash(/private/tmp/claude-501/-Users-m4v3r1ck-Storage-Workload-Pivot-network-security-lab/ef88740a-8880-447f-b0f6-b78254e80540/scratchpad/venv/bin/python manage.py check)"
+    ]
+  }
+}

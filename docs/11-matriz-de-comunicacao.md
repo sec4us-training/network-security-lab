@@ -1,5 +1,7 @@
 # Matriz de comunicação — objetivo final
 
+[← Índice](../README.md)
+
 | Origem | Destino | Serviço | Política |
 |---|---|---|---|
 | WAN | DMZ | HTTP/HTTPS via DNAT | Permitir |
