@@ -312,6 +312,95 @@ curl -s http://localhost/ | grep -i WEB01
 
 ---
 
+## Configuração de rede
+
+No Ubuntu Server (22.04/24.04) a rede é definida via **Netplan**, em arquivos
+YAML dentro de `/etc/netplan/`. O passo a passo abaixo mostra como trocar uma
+VM de DHCP para **IP estático**, usando a **APP01** (`10.10.10.10/24`, gateway
+`10.10.10.1`) como exemplo. Repita o procedimento em cada máquina ajustando
+endereço, gateway e DNS conforme a tabela de [endereçamento](00-arquitetura.md).
+
+**1. Descubra o nome da interface** (ex.: `enp0s3`, `ens33`, `eth0`):
+
+```bash
+ip -br link
+```
+
+**2. Localize o arquivo Netplan existente e faça um backup:**
+
+```bash
+ls /etc/netplan/
+# ex.: 00-installer-config.yaml ou 50-cloud-init.yaml
+sudo cp /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.bak
+```
+
+**3. Edite o YAML** (`sudo vim /etc/netplan/00-installer-config.yaml`) com o
+conteúdo abaixo. **Atenção à indentação: Netplan usa 2 espaços e não aceita
+tabs.** Troque `enp0s3` pelo nome real da sua interface:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - 10.10.10.10/24
+      routes:
+        - to: default
+          via: 10.10.10.1
+      nameservers:
+        addresses: [10.10.10.20]
+```
+
+**4. Ajuste as permissões** (versões recentes do Netplan avisam se o arquivo
+estiver legível por outros usuários):
+
+```bash
+sudo chmod 600 /etc/netplan/00-installer-config.yaml
+```
+
+**5. Valide e aplique.** O `netplan try` aplica a configuração e desfaz
+automaticamente após ~120 s se você não confirmar — útil para não perder o
+acesso em caso de erro. Confirmando, use `netplan apply`:
+
+```bash
+sudo netplan try      # testa; pressione Enter para confirmar
+sudo netplan apply    # aplica definitivamente
+```
+
+**6. Verifique o resultado:**
+
+```bash
+ip -br addr show        # confere o IP na interface
+ip route                # confere a rota default (via gateway)
+ping -c2 10.10.10.1     # testa o gateway
+```
+
+> **FW01** possui três interfaces (WAN, LAN e DMZ). Declare todas no mesmo
+> arquivo, **sem** `routes`/`default` no cenário isolado, pois ele é o próprio
+> roteador:
+>
+> ```yaml
+> network:
+>   version: 2
+>   renderer: networkd
+>   ethernets:
+>     enp0s3:              # WAN
+>       dhcp4: false
+>       addresses: [203.0.113.1/24]
+>     enp0s8:              # LAN
+>       dhcp4: false
+>       addresses: [10.10.10.1/24]
+>     enp0s9:              # DMZ
+>       dhcp4: false
+>       addresses: [172.16.20.1/24]
+> ```
+
+---
+
 ## Fluxo recomendado (após a instalação)
 
 1. Crie snapshots iniciais de cada VM já com as ferramentas instaladas.
