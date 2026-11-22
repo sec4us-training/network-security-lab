@@ -32,16 +32,24 @@ Posicione regras de autorização cuidadosamente: Squid processa http_access em 
 acl lan src 10.10.10.0/24
 http_access allow lan
 http_access deny all
-http_port 3128 intercept
 
-#IPTABLES (mesmo host do FW)
-iptables -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3128
+# Porta de proxy explícito (forward-proxy) — OBRIGATÓRIA.
+# O Squid exige ao menos uma porta forward-proxy. Uma porta somente
+# 'intercept' faz o serviço abortar com "No forward-proxy ports configured"
+# e, em seguida, "FATAL: mimeLoadIcon: cannot parse internal URL ...:0/...".
+http_port 3128
+
+# Porta dedicada à interceptação (precisa ser diferente da porta forward-proxy).
+http_port 3129 intercept
+
+#IPTABLES (mesmo host do FW) — redirecione para a porta 'intercept' (3129)
+iptables -t nat -A PREROUTING -s 10.10.10.0/24 -p tcp --dport 80 -j REDIRECT --to-port 3129
 
 #IPTABLES (outra maquina)
-iptables -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.16.20.10:80
+iptables -t nat -A PREROUTING -s 10.10.10.0/24 -p tcp --dport 80 -j DNAT --to-destination 172.16.20.10:80
 
-# APP01
-curl -x http://203.0.113.10/
+# APP01 — no modo transparente o cliente NÃO usa -x (sem proxy configurado)
+curl http://203.0.113.10/
 ```
 
 ## Evidências esperadas
