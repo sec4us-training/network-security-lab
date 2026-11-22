@@ -19,11 +19,30 @@ Configurar proxy explícito e ACLs HTTP.
 acl lan src 10.10.10.0/24
 http_access allow lan
 http_access deny all
-http_port 3128
+http_port 3128 
 # APP01
 curl -x http://10.10.10.1:3128 http://203.0.113.10/
 ```
 Posicione regras de autorização cuidadosamente: Squid processa http_access em ordem. Não abra o proxy para a WAN.
+
+## Proxy Transparente
+
+```bash
+# Exemplo de ACL em squid.conf (ajuste à configuração da distribuição)
+acl lan src 10.10.10.0/24
+http_access allow lan
+http_access deny all
+http_port 3128 intercept
+
+#IPTABLES (mesmo host do FW)
+iptables -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3128
+
+#IPTABLES (outra maquina)
+iptables -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.16.20.10:80
+
+# APP01
+curl -x http://203.0.113.10/
+```
 
 ## Evidências esperadas
 
